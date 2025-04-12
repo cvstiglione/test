@@ -19,64 +19,61 @@
 <p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
 <p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;3D Model with Three.js&lt;/title&gt;</p>
 <p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>body { margin: 0; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>body { margin: 0; overflow: hidden; }</p>
 <p class="p1"><span class="Apple-converted-space">    </span>canvas { display: block; }</p>
 <p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
 <p class="p1">&lt;/head&gt;</p>
 <p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Inclure Three.js --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"&gt;&lt;/script&gt;</p>
 <p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Inclure le chargeur GLTFLoader pour charger le modèle GLB --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/loaders/GLTFLoader.js"&gt;&lt;/script&gt;</p>
-<p class="p2"><span class="Apple-converted-space">  </span></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Créer une scène</p>
-<p class="p1"><span class="Apple-converted-space">    </span>var scene = new THREE.Scene();</p>
+<p class="p1">&lt;!-- Inclure Three.js --&gt;</p>
+<p class="p1">&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"&gt;&lt;/script&gt;</p>
 <p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Créer une caméra (perspective)</p>
-<p class="p1"><span class="Apple-converted-space">    </span>var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);</p>
+<p class="p1">&lt;!-- Inclure le chargeur GLTFLoader --&gt;</p>
+<p class="p1">&lt;script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"&gt;&lt;/script&gt;</p>
 <p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Créer un renderer WebGL</p>
-<p class="p1"><span class="Apple-converted-space">    </span>var renderer = new THREE.WebGLRenderer();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>renderer.setSize(window.innerWidth, window.innerHeight); // Ajuste la taille au viewport</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.body.appendChild(renderer.domElement); // Ajouter le canvas au DOM</p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Créer une scène</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var scene = new THREE.Scene();</p>
 <p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Créer une lumière directionnelle</p>
-<p class="p1"><span class="Apple-converted-space">    </span>var light = new THREE.DirectionalLight(0xffffff, 1);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>light.position.set(5, 5, 5).normalize();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>scene.add(light); // Ajouter la lumière à la scène</p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Créer une caméra</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>camera.position.z = 5;</p>
 <p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Créer un chargeur pour le modèle GLB</p>
-<p class="p1"><span class="Apple-converted-space">    </span>var loader = new THREE.GLTFLoader();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Créer un renderer</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var renderer = new THREE.WebGLRenderer({ antialias: true });</p>
+<p class="p1"><span class="Apple-converted-space">  </span>renderer.setSize(window.innerWidth, window.innerHeight);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.body.appendChild(renderer.domElement);</p>
 <p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Remplacez cette URL par le chemin vers votre fichier GLB</p>
-<p class="p1"><span class="Apple-converted-space">    </span>loader.load('https://raw.githubusercontent.com/cvstiglione/test/main/scene2.glb', function(gltf) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>scene.add(gltf.scene); // Ajouter le modèle à la scène</p>
-<p class="p1"><span class="Apple-converted-space">      </span>console.log('Modèle chargé avec succès');</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}, undefined, function(error) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>console.error(error); // En cas d'erreur de chargement</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Ajouter une lumière</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var light = new THREE.DirectionalLight(0xffffff, 1);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>light.position.set(5, 5, 5).normalize();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>scene.add(light);</p>
 <p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Positionner la caméra</p>
-<p class="p1"><span class="Apple-converted-space">    </span>camera.position.z = 5;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Charger le modèle</p>
+<p class="p1"><span class="Apple-converted-space">  </span>var loader = new THREE.GLTFLoader();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>loader.load('https://raw.githubusercontent.com/cvstiglione/test/main/scene2.glb', function (gltf) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const model = gltf.scene;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>model.rotation.y = Math.PI; // optionnel : tourner à 180°</p>
+<p class="p1"><span class="Apple-converted-space">    </span>scene.add(model);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}, undefined, function (error) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>console.error('Erreur de chargement du modèle', error);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
 <p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Fonction d'animation</p>
-<p class="p1"><span class="Apple-converted-space">    </span>var animate = function () {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>requestAnimationFrame(animate);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Animation</p>
+<p class="p1"><span class="Apple-converted-space">  </span>function animate() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>requestAnimationFrame(animate);</p>
 <p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Effectuer une rotation sur l'objet (optionnel)</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (scene.children[0]) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>scene.children[0].rotation.x += 0.01;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>scene.children[0].rotation.y += 0.01;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (scene.children.length &gt; 1) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const model = scene.children[1];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>model.rotation.y += 0.01;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
 <p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Rendre la scène</p>
-<p class="p1"><span class="Apple-converted-space">      </span>renderer.render(scene, camera);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>renderer.render(scene, camera);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
 <p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>animate(); // Démarrer l'animation</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>animate();</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p2"><br></p>
 <p class="p1">&lt;/body&gt;</p>
 <p class="p1">&lt;/html&gt;</p>
 </body>
