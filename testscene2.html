@@ -37,7 +37,7 @@
 
   // Charger le modèle
   var loader = new THREE.GLTFLoader();
-  loader.load('https://raw.githubusercontent.com/cvstiglione/test/main/scene2.glb', function (gltf) {
+  loader.load('https://github.com/cvstiglione/test/raw/refs/heads/main/scene2.glb', function (gltf) {
     const model = gltf.scene;
     model.rotation.y = Math.PI; // optionnel : tourner à 180°
     scene.add(model);
